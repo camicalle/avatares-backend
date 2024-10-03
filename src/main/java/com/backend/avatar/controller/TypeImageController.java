@@ -2,6 +2,7 @@ package com.backend.avatar.controller;
 
 import com.backend.avatar.entity.TypeImageEntity;
 import com.backend.avatar.service.TypeImageService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,16 +19,19 @@ public class TypeImageController {
     @Autowired
     private TypeImageService typeImageService;
 
+    @Operation(summary = "Devuelve un listado de los tipos de imagenes")
     @GetMapping
     public List<TypeImageEntity> findAll() {
         return typeImageService.findAll();
     }
 
+    @Operation(summary = "Devuelve un listado de los imagenes paginados")
     @GetMapping("/paginate")
     public Page<TypeImageEntity> findAllPageable(Pageable pageable) {
         return typeImageService.findAllPageable(pageable);
     }
 
+    @Operation(summary = "Inserta varios tipos de imagenes")
     @PostMapping("/saveAll")
     public List<TypeImageEntity> saveAll(@RequestBody List<TypeImageEntity> typeImageEntityList) {
         return typeImageService.saveAll(typeImageEntityList);
