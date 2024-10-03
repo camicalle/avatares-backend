@@ -23,7 +23,7 @@ public class AvatarController {
         return avatarService.findAll();
     }
 
-    @GetMapping("/paginado")
+    @GetMapping("/paginate")
     public Page<AvatarEntity> findAllPageable(@RequestParam Integer page, @RequestParam Integer size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         return avatarService.findAllPageable(pageRequest);

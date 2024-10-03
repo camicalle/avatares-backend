@@ -16,16 +16,10 @@ import org.springframework.context.annotation.Configuration;
                 @Server(url = OpenApiConstant.URL_SERVER_LOCAL, description = OpenApiConstant.DESCRIPTION_SERVER_LOCAL),
         },
         tags = {
-                @Tag(name = OpenApiConstant.AVATAR_CONTROLLER, description = OpenApiConstant.TEXT_CONTROLLER + "avatares"),
+                @Tag(name = OpenApiConstant.TYPE_IMAGE_CONTROLLER, description = OpenApiConstant.TEXT_CONTROLLER + "tipos de imagenes"),
                 @Tag(name = OpenApiConstant.IMAGE_CONTROLLER, description = OpenApiConstant.TEXT_CONTROLLER + "imagenes"),
+                @Tag(name = OpenApiConstant.AVATAR_CONTROLLER, description = OpenApiConstant.TEXT_CONTROLLER + "avatares")
         }
-)
-@SecurityScheme(
-        name = "Bearer Authentication",
-        type = SecuritySchemeType.HTTP,
-        bearerFormat = "JWT",
-        scheme = "bearer",
-        description = "Por favor, ingrese su token JWT en el formato 'Bearer <token>'"
 )
 public class OpenApiConfig {
 }

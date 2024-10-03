@@ -10,6 +10,8 @@ public class OpenApiConstant {
     public static final String URL_SERVER_LOCAL             = "http://localhost:8080";
     public static final String DESCRIPTION_SERVER_LOCAL     = "Servidor local";
 
-    public static final String AVATAR_CONTROLLER            = "avatar-controller";
+    public static final String TYPE_IMAGE_CONTROLLER        = "type-image-controller";
     public static final String IMAGE_CONTROLLER             = "image-controller";
+    public static final String AVATAR_CONTROLLER            = "avatar-controller";
+
 }
