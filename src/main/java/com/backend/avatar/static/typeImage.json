@@ -1,0 +1,47 @@
+[
+  {
+    "name": "JPEG",
+    "description": "Formato de imagen con compresión, ampliamente utilizado para fotografías.",
+    "lastUser": "cacalle"
+  },
+  {
+    "name": "PNG",
+    "description": "Formato de imagen sin pérdida, soporta transparencia.",
+    "lastUser": "cacalle"
+  },
+  {
+    "name": "GIF",
+    "description": "Formato de imagen que soporta animaciones.",
+    "lastUser": "cacalle"
+  },
+  {
+    "name": "BMP",
+    "description": "Formato de imagen de mapa de bits, sin compresión.",
+    "lastUser": "cacalle"
+  },
+  {
+    "name": "TIFF",
+    "description": "Formato de imagen de alta calidad, soporta compresión con y sin pérdida.",
+    "lastUser": "cacalle"
+  },
+  {
+    "name": "WEBP",
+    "description": "Formato de imagen que ofrece compresión eficiente.",
+    "lastUser": "cacalle"
+  },
+  {
+    "name": "SVG",
+    "description": "Formato de imagen basado en vectores, ideal para gráficos escalables.",
+    "lastUser": "cacalle"
+  },
+  {
+    "name": "HEIC",
+    "description": "Formato de imagen de alta eficiencia, común en dispositivos Apple.",
+    "lastUser": "cacalle"
+  },
+  {
+    "name": "RAW",
+    "description": "Formato de imagen sin procesar utilizado en fotografía profesional.",
+    "lastUser": "cacalle"
+  }
+]
