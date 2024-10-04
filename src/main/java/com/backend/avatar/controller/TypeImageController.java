@@ -1,5 +1,6 @@
 package com.backend.avatar.controller;
 
+import com.backend.avatar.dto.response.ControllerResponse;
 import com.backend.avatar.entity.TypeImageEntity;
 import com.backend.avatar.service.TypeImageService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,22 +24,22 @@ public class TypeImageController {
 
     @Operation(summary = "Devuelve un listado de los tipos de imagenes")
     @GetMapping
-    public List<TypeImageEntity> findAll() {
+    public ResponseEntity<ControllerResponse<List<TypeImageEntity>>> findAll() {
         log.debug("RestController --> types-images --> findAll()");
-        return typeImageService.findAll();
+        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), typeImageService.findAll(), HttpStatus.OK.getReasonPhrase()));
     }
 
     @Operation(summary = "Devuelve un listado de los imagenes paginados")
     @GetMapping("/paginate")
-    public Page<TypeImageEntity> findAllPageable(Pageable pageable) {
+    public ResponseEntity<ControllerResponse<Page<TypeImageEntity>>> findAllPageable(Pageable pageable) {
         log.debug("RestController --> types-images --> findAllPageable()");
-        return typeImageService.findAllPageable(pageable);
+        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), typeImageService.findAllPageable(pageable), HttpStatus.OK.getReasonPhrase()));
     }
 
     @Operation(summary = "Inserta varios tipos de imagenes")
     @PostMapping("/saveAll")
-    public List<TypeImageEntity> saveAll(@RequestBody List<TypeImageEntity> typeImageEntityList) {
+    public ResponseEntity<ControllerResponse<List<TypeImageEntity>>> saveAll(@RequestBody List<TypeImageEntity> typeImageEntityList) {
         log.debug("RestController --> types-images --> saveAll()");
-        return typeImageService.saveAll(typeImageEntityList);
+        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), typeImageService.saveAll(typeImageEntityList), HttpStatus.OK.getReasonPhrase()));
     }
 }
