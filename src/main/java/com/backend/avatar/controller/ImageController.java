@@ -1,7 +1,7 @@
 package com.backend.avatar.controller;
 
 import com.backend.avatar.service.ImageService;
-import com.backend.avatar.dto.ImageRequest;
+import com.backend.avatar.dto.request.ImageRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +29,11 @@ public class ImageController {
 
     @Operation(summary = "Devuelve una imagen decodificada")
     @PostMapping("/decode")
-    public ResponseEntity<byte[]> decodeImage(@RequestBody ImageRequest imageRequest, @RequestParam String fileName, @RequestParam String typeFile) {
+    public ResponseEntity<byte[]> decodeImage(@RequestBody ImageRequest imageRequest) {
         log.debug("RestController --> image --> decodeImage()");
-        byte[] imageBytes = imageService.decodeBase64(imageRequest.getCodifyImage());
+        byte[] imageBytes = imageService.decodeBase64(imageRequest);
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + imageService.file(fileName, typeFile));
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + imageService.file(imageRequest));
         return ResponseEntity.ok().headers(headers).body(imageBytes);
     }
 }
