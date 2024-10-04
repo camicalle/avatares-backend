@@ -4,6 +4,7 @@ import com.backend.avatar.dto.response.ControllerResponse;
 import com.backend.avatar.entity.TypeImageEntity;
 import com.backend.avatar.service.TypeImageService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,20 +27,20 @@ public class TypeImageController {
     @GetMapping
     public ResponseEntity<ControllerResponse<List<TypeImageEntity>>> findAll() {
         log.debug("RestController --> types-images --> findAll()");
-        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), typeImageService.findAll(), HttpStatus.OK.getReasonPhrase()));
+        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), typeImageService.findAll(), "Datos encontrados con exito"));
     }
 
-    @Operation(summary = "Devuelve un listado de los imagenes paginados")
+    @Operation(summary = "Devuelve un listado de los tipos de imagenes paginados")
     @GetMapping("/paginate")
     public ResponseEntity<ControllerResponse<Page<TypeImageEntity>>> findAllPageable(Pageable pageable) {
         log.debug("RestController --> types-images --> findAllPageable()");
-        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), typeImageService.findAllPageable(pageable), HttpStatus.OK.getReasonPhrase()));
+        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), typeImageService.findAllPageable(pageable), "Datos encontrado con exito"));
     }
 
-    @Operation(summary = "Inserta varios tipos de imagenes")
-    @PostMapping("/saveAll")
-    public ResponseEntity<ControllerResponse<List<TypeImageEntity>>> saveAll(@RequestBody List<TypeImageEntity> typeImageEntityList) {
+    @Operation(summary = "Inserta o actualizar un tipo de imagene")
+    @PostMapping("/saveAndUpdate")
+    public ResponseEntity<ControllerResponse<TypeImageEntity>> saveAndUpdate(@Valid @RequestBody TypeImageEntity typeImageEntity) {
         log.debug("RestController --> types-images --> saveAll()");
-        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), typeImageService.saveAll(typeImageEntityList), HttpStatus.OK.getReasonPhrase()));
+        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), typeImageService.saveAndUpdate(typeImageEntity), "Creado o actualizado con exito" ));
     }
 }

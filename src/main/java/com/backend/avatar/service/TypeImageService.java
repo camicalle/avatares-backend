@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -15,8 +16,13 @@ public class TypeImageService {
     @Autowired
     private TypeImageRepository typeImageRepository;
 
-    public List<TypeImageEntity> saveAll(List<TypeImageEntity> typeImageEntityList) {
-        return typeImageRepository.saveAll(typeImageEntityList);
+    public TypeImageEntity saveAndUpdate(TypeImageEntity typeImageEntity) {
+
+        if (typeImageEntity.getStatus().equals("I")) {
+            typeImageEntity.setDateInactivation(LocalDateTime.now());
+        }
+
+        return typeImageRepository.save(typeImageEntity);
     }
 
     public List<TypeImageEntity> findAll() {
