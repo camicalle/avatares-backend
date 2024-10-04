@@ -4,25 +4,24 @@ import com.backend.avatar.constant.Constant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@Setter
-@Getter
 @Entity
+@Data
 @Table(name = "types_image")
 public class TypeImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuidTypeImage;
 
-    @NotNull(message = Constant.NOT_BLANK)
+    @NotBlank(message = Constant.NOT_BLANK)
     private String name;
 
     private String description;
@@ -36,7 +35,7 @@ public class TypeImageEntity {
 
     private String status = "A";
 
-    @NotNull(message = Constant.NOT_BLANK)
+    @NotBlank(message = Constant.NOT_BLANK)
     private String lastUser;
 
     @Schema(hidden = true)

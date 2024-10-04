@@ -1,5 +1,8 @@
 package com.backend.avatar.constant;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class Constant {
     public static final String ERROR = "::ERROR::";
 

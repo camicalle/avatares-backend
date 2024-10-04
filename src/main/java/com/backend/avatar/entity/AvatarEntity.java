@@ -2,17 +2,16 @@ package com.backend.avatar.entity;
 
 import com.backend.avatar.constant.Constant;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Setter
-@Getter
+@Data
 @Table(name = "avatars")
 public class AvatarEntity {
 
@@ -21,7 +20,7 @@ public class AvatarEntity {
     private UUID uuidAvatar;
 
     @Lob
-    @NotNull(message = Constant.NOT_BLANK)
+    @NotBlank(message = Constant.NOT_BLANK)
     private String image;
 
     private String name;
@@ -35,7 +34,7 @@ public class AvatarEntity {
 
     private String status = "A";
 
-    @NotNull(message = Constant.NOT_BLANK)
+    @NotBlank(message = Constant.NOT_BLANK)
     private String lastUser;
 
     @ManyToOne

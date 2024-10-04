@@ -1,14 +1,11 @@
 package com.backend.avatar.controller;
 
-import com.backend.avatar.entity.AvatarEntity;
 import com.backend.avatar.service.ImageService;
-import com.backend.avatar.util.ImageRequest;
+import com.backend.avatar.dto.ImageRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

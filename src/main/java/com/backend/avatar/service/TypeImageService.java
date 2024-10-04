@@ -1,9 +1,6 @@
 package com.backend.avatar.service;
 
-import com.backend.avatar.entity.AvatarEntity;
-import com.backend.avatar.entity.ExtensionEntity;
 import com.backend.avatar.entity.TypeImageEntity;
-import com.backend.avatar.repository.ExtensionRepository;
 import com.backend.avatar.repository.TypeImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

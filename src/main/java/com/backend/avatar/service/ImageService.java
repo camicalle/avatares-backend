@@ -19,8 +19,8 @@ public class ImageService {
         return Base64.getDecoder().decode(base64String);
     }
 
-    public StringBuffer file(String fileName, String typeFile) {
-        StringBuffer file = new StringBuffer();
+    public StringBuilder file(String fileName, String typeFile) {
+        StringBuilder file = new StringBuilder();
         file.append(fileName);
         file.append(".");
         file.append(typeFile);
