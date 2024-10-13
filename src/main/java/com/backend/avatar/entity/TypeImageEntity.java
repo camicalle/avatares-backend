@@ -6,12 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,7 +22,6 @@ public class TypeImageEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuidTypeImage;
 
-    @Column(unique = true)
     @NotBlank(message = Constant.NOT_BLANK)
     private String name;
 
@@ -42,6 +38,8 @@ public class TypeImageEntity {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dateInactivation;
 
+    @Pattern(regexp = "[AI]", message = Constant.MESSAGE_STATUS)
+    @Column(nullable = false, length = 1)
     private String status = "A";
 
     @NotBlank(message = Constant.NOT_BLANK)
