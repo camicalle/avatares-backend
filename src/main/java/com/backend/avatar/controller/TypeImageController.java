@@ -1,8 +1,11 @@
 package com.backend.avatar.controller;
 
+import com.backend.avatar.constant.Constant;
+import com.backend.avatar.controller.error.ControllerCustomException;
 import com.backend.avatar.dto.response.ControllerResponse;
 import com.backend.avatar.entity.TypeImageEntity;
 import com.backend.avatar.service.TypeImageService;
+import com.backend.avatar.util.ValidationUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -27,20 +32,32 @@ public class TypeImageController {
     @GetMapping
     public ResponseEntity<ControllerResponse<List<TypeImageEntity>>> findAll() {
         log.debug("RestController --> types-images --> findAll()");
-        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), typeImageService.findAll(), "Datos encontrados con exito"));
+        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), this.typeImageService.findAll(), Constant.MESSAGE_SELECT));
+    }
+
+    @Operation(summary = "Devuelve el tipo de imagen consultado por uuid")
+    @GetMapping("/{uuid}")
+    public ResponseEntity<ControllerResponse<Optional<TypeImageEntity>>> findByUuid(@PathVariable UUID uuid) throws ControllerCustomException {
+        log.debug("RestController --> types-images --> findByUuid()");
+        Optional<TypeImageEntity> typeImageExistByUuid = ValidationUtil.existsByUuid(uuid, this.typeImageService::findByUuid, "El uuid");
+        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), typeImageExistByUuid, Constant.MESSAGE_SELECT));
     }
 
     @Operation(summary = "Devuelve un listado de los tipos de imagenes paginados")
     @GetMapping("/paginate")
     public ResponseEntity<ControllerResponse<Page<TypeImageEntity>>> findAllPageable(Pageable pageable) {
         log.debug("RestController --> types-images --> findAllPageable()");
-        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), typeImageService.findAllPageable(pageable), "Datos encontrado con exito"));
+        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), this.typeImageService.findAllPageable(pageable), Constant.MESSAGE_SELECT));
     }
 
-    @Operation(summary = "Inserta o actualizar un tipo de imagene")
+    @Operation(summary = "Inserta o actualizar un tipo de imagen")
     @PostMapping("/saveAndUpdate")
-    public ResponseEntity<ControllerResponse<TypeImageEntity>> saveAndUpdate(@Valid @RequestBody TypeImageEntity typeImageEntity) {
+    public ResponseEntity<ControllerResponse<TypeImageEntity>> saveAndUpdate(@Valid @RequestBody TypeImageEntity typeImageEntity) throws ControllerCustomException {
         log.debug("RestController --> types-images --> saveAll()");
-        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), typeImageService.saveAndUpdate(typeImageEntity), "Creado o actualizado con exito" ));
+        Optional<TypeImageEntity> typeImageExistByUuidAndName = this.typeImageService.findByUuidAndName(typeImageEntity);
+        if (typeImageExistByUuidAndName.isEmpty()) {
+            ValidationUtil.existsByName(typeImageEntity.getName(), this.typeImageService::findByName, "El nombre");
+        }
+        return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), this.typeImageService.saveAndUpdate(typeImageEntity), Constant.MESSAGE_INSERT_UPDATE ));
     }
 }

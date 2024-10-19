@@ -19,8 +19,9 @@ import java.util.UUID;
 @Table(name = "types_image")
 public class TypeImageEntity {
     @Id
+    @Column(name = "uuidTypeImage")
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuidTypeImage;
+    private UUID uuid;
 
     @NotBlank(message = Constant.NOT_BLANK)
     private String name;
