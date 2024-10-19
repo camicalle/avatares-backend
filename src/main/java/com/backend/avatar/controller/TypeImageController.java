@@ -7,6 +7,9 @@ import com.backend.avatar.entity.TypeImageEntity;
 import com.backend.avatar.service.TypeImageService;
 import com.backend.avatar.util.ValidationUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +32,26 @@ public class TypeImageController {
     private TypeImageService typeImageService;
 
     @Operation(summary = "Devuelve un listado de los tipos de imagenes")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = Constant.STATUS_200, description = Constant.TEXT_STATUS_200,
+                    content = @Content(mediaType = Constant.MEDIA_TYPE)),
+            @ApiResponse(responseCode = Constant.STATUS_500, description = Constant.TEXT_STATUS_500,
+                    content = @Content(mediaType = Constant.MEDIA_TYPE))
+    })
     @GetMapping
     public ResponseEntity<ControllerResponse<List<TypeImageEntity>>> findAll() {
         log.debug("RestController --> types-images --> findAll()");
         return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), this.typeImageService.findAll(), Constant.MESSAGE_SELECT));
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = Constant.STATUS_200, description = Constant.TEXT_STATUS_200,
+                    content = @Content(mediaType = Constant.MEDIA_TYPE)),
+            @ApiResponse(responseCode = Constant.STATUS_404, description = Constant.TEXT_STATUS_404,
+                    content = @Content(mediaType = Constant.MEDIA_TYPE)),
+            @ApiResponse(responseCode = Constant.STATUS_500, description = Constant.TEXT_STATUS_500,
+                    content = @Content(mediaType = Constant.MEDIA_TYPE))
+    })
     @Operation(summary = "Devuelve el tipo de imagen consultado por uuid")
     @GetMapping("/{uuid}")
     public ResponseEntity<ControllerResponse<Optional<TypeImageEntity>>> findByUuid(@PathVariable UUID uuid) throws ControllerCustomException {
@@ -43,6 +60,12 @@ public class TypeImageController {
         return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), typeImageExistByUuid, Constant.MESSAGE_SELECT));
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = Constant.STATUS_200, description = Constant.TEXT_STATUS_200,
+                    content = @Content(mediaType = Constant.MEDIA_TYPE)),
+            @ApiResponse(responseCode = Constant.STATUS_500, description = Constant.TEXT_STATUS_500,
+                    content = @Content(mediaType = Constant.MEDIA_TYPE))
+    })
     @Operation(summary = "Devuelve un listado de los tipos de imagenes paginados")
     @GetMapping("/paginate")
     public ResponseEntity<ControllerResponse<Page<TypeImageEntity>>> findAllPageable(Pageable pageable) {
@@ -50,6 +73,14 @@ public class TypeImageController {
         return ResponseEntity.ok(new ControllerResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), this.typeImageService.findAllPageable(pageable), Constant.MESSAGE_SELECT));
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = Constant.STATUS_200, description = Constant.TEXT_STATUS_200,
+                    content = @Content(mediaType = Constant.MEDIA_TYPE)),
+            @ApiResponse(responseCode = Constant.STATUS_409, description = Constant.TEXT_STATUS_409,
+                    content = @Content(mediaType = Constant.MEDIA_TYPE)),
+            @ApiResponse(responseCode = Constant.STATUS_500, description = Constant.TEXT_STATUS_500,
+                    content = @Content(mediaType = Constant.MEDIA_TYPE))
+    })
     @Operation(summary = "Inserta o actualizar un tipo de imagen")
     @PostMapping("/saveAndUpdate")
     public ResponseEntity<ControllerResponse<TypeImageEntity>> saveAndUpdate(@Valid @RequestBody TypeImageEntity typeImageEntity) throws ControllerCustomException {
